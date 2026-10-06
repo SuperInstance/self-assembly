@@ -1,2 +1,3 @@
-name: [unclosed
-  when: broken: : yaml: :
+name: totally-different-name
+when: does stuff
+version: 0.1.0

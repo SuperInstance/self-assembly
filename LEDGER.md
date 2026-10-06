@@ -70,3 +70,6 @@ judge transport failed
 ## 2026-10-06T02:28:50Z — assemble evil-probe: start (from needs/evil-probe.yaml)
 ## 2026-10-06T02:28:51Z — assemble evil-probe: REJECTED: provenance verification failed
 ## 2026-10-06T02:30:52Z — wake: plugin '_corrupt-test' SKIPPED: malformed manifest (boot continues)
+## 2026-10-06T02:30:57Z — wake: committed
+## 2026-10-06T02:30:57Z — wake: wake done
+## 2026-10-06T02:31:00Z — wake: plugin '_corrupt-test' SKIPPED: malformed manifest (boot continues)
