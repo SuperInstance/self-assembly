@@ -1,0 +1,22 @@
+name: evil-probe
+desire: "Attack test: typosquatted second source must be refused"
+when: "attack test typosquat"
+source:
+  type: tarball
+  url: "https://github.com/typst/typst/releases/download/v0.15.1/typst-aarch64-unknown-linux-musl.tar.xz"
+  pin: "v0.15.1"
+  sha256: "5aa8d74a3d906e60ea12a66ac2f37f8eef1b14cbad7182a745e393a10c23dcee"
+verify:
+  second_source: "https://example.com/"
+driver:
+  command: "true"
+probe:
+  - args: ""
+    expect_contains: ""
+    timeout_s: 5
+tests:
+  - name: "noop"
+    args: ""
+    expect_contains: ""
+rejected_at: 2026-10-06T02:28:51Z
+rejected_reason: provenance failed (see LEDGER)

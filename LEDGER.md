@@ -65,3 +65,8 @@ judge transport failed
 ## 2026-10-06T02:27:55Z — assemble net-latency: start (from needs/net-latency.yaml)
 ## 2026-10-06T02:28:02Z — assemble net-latency: acceptance test passed (try 1)
 ## 2026-10-06T02:28:15Z — assemble net-latency: REGISTERED plugins/net-latency
+## 2026-10-06T02:28:45Z — assemble evil-probe: start (from needs/evil-probe.yaml)
+## 2026-10-06T02:28:46Z — assemble evil-probe: REJECTED: provenance verification failed
+## 2026-10-06T02:28:50Z — assemble evil-probe: start (from needs/evil-probe.yaml)
+## 2026-10-06T02:28:51Z — assemble evil-probe: REJECTED: provenance verification failed
+## 2026-10-06T02:30:52Z — wake: plugin '_corrupt-test' SKIPPED: malformed manifest (boot continues)
