@@ -4,6 +4,37 @@ Debts are named, dated, and owned. A debt is not a bug; it is a known
 compromise with a named next step. The run_shell hole is entry #1 by
 charter — it goes on the ledger BY NAME on day one.
 
+## #6 — PROVEN: install sandbox leaks the filesystem (OPEN, 2026-10-06)
+
+Status upgrade: this was entry #1/#2 in theory; it is now PROVEN by
+analysis (no live exploit was run — deliberately).
+
+The v1 install sandbox is `env -i` + `timeout 120`. That stops *environment*
+exfiltration. It does NOT stop filesystem reads. `install.sh` runs as the
+`ubuntu` user, and everything the `ubuntu` user can read, it can read:
+
+- `~/.self-assembly-cpu-secret` (mode 600, owned by ubuntu) — the CPU API
+  bearer token. A malicious install recipe can `cat` it in one line.
+- `~/.ssh/` keys, the git repo, LEDGER.md, every plugin's driver and ledger.
+- Writable: /tmp, scratch/, the plugin's own `bin/` DEST, and anything else
+  ubuntu owns in the tree.
+
+Concretely: a typosquatted or compromised source that passes the pin check
+(because the attacker controls the release artifact the pin was taken from —
+see Kimi's "second source" requirement, which exists precisely for this)
+would execute with full read access to the box's secrets during the 120 s
+window. The 120 s leash bounds *compute*, not *reach*.
+
+This is the concrete justification for the bench split as the next step:
+fetched code must never execute as a user that can read the secrets it
+should never see. Options in order: (a) bench split — separate uid / mount
+namespace for fetched code, no secret files visible; (b) per-plugin unix
+user with no home-dir overlap; (c) keep v1 sandbox but move ALL secrets
+out of ubuntu-readable paths (defense in depth, not a fix). Until one of
+these lands, treat every install as running with the reader's eyes open:
+provenance is verified BEFORE execution, and that verification is the only
+real gate. Do not install anything you have not reason to trust.
+
 ## #5 — CPU API reachability (OPEN, 2026-10-06)
 
 `cpu-api.py` binds 127.0.0.1:8777 (localhost only) and the CPU path is proven
