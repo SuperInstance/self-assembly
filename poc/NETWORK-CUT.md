@@ -28,7 +28,7 @@ by the fixed core at spawn, and the process inside cannot escape it.
 **Canary:** a fake vault token, planted both as a file
 (`poc/experiments/network-cut/canary-vault-token.txt`) and as an
 environment variable (`CANARY_TOKEN`). If the string
-`CANARY-SECRET-T0K3N-7f3a91` ever arrives somewhere it shouldn't, the
+`[redacted canary value]` ever arrives somewhere it shouldn't, the
 boundary leaked. Everything is local and fake; nothing leaves the box.
 
 **Chatty installer** (`chatty-installer.sh`): tries every exfil channel a
