@@ -73,3 +73,6 @@ judge transport failed
 ## 2026-10-06T02:30:57Z — wake: committed
 ## 2026-10-06T02:30:57Z — wake: wake done
 ## 2026-10-06T02:31:00Z — wake: plugin '_corrupt-test' SKIPPED: malformed manifest (boot continues)
+## 2026-10-06T02:31:05Z — wake: committed
+## 2026-10-06T02:31:05Z — wake: wake done
+## 2026-10-06T02:31:05Z — wake: plugin '_corrupt-test' SKIPPED: malformed manifest (boot continues)
