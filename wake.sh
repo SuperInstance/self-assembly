@@ -69,6 +69,17 @@ d=yaml.safe_load(open('$mf'))
 assert isinstance(d,dict) and d.get('name')=='$n' and d.get('when'), 'bad manifest'
 " 2>/dev/null; then
     log "plugin '$n' SKIPPED: malformed manifest (boot continues)"
+    # file an issue record: durable, attributable, reviewable (never fatal)
+    mkdir -p ledger/issues
+    issue="ledger/issues/manifest-$n-$(ts | tr ':+' '--').md"
+    {
+      echo "# ISSUE $(ts) — malformed manifest: plugins/$n/manifest.yaml"
+      echo ""
+      echo "Plugin '$n' skipped at wake: manifest failed validation"
+      echo "(must be a YAML dict with name == directory name and a 'when' trigger)."
+      echo "Fix the manifest or remove the plugin directory; git blame shows origin."
+    } > "$issue"
+    log "issue filed: $issue"
   fi
 done
 
