@@ -1,0 +1,26 @@
+name: disk-report
+desire: "Show me how full the disks are, for any path I name"
+when: "report disk usage of a path"
+source:
+  type: none
+  url: ""
+  pin: ""
+  sha256: ""
+verify:
+  second_source: "human:muse:2026-10-06:no fetch needed; system tool only"
+driver:
+  command: "df -h"
+probe:
+  - args: "/"
+    expect_contains: "Filesystem"
+    timeout_s: 10
+tests:
+  - name: "root fs listed"
+    args: "/"
+    expect_contains: "/dev/"
+  - name: "human readable sizes"
+    args: "/home"
+    expect_contains: "G"
+
+registered_at: 2026-10-06T02:22:05Z
+registered_by: assembler
