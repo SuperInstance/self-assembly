@@ -30,18 +30,15 @@ case "$SHA" in [0-9a-f]* ) [ "${#SHA}" = 64 ] || { echo "verify REFUSED: sha256 
 
 # Console binary guard: the fetched asset must match the tuned asset_arch
 # (from the ethos agent's .tuned.yaml) — the console spec, not a guess.
+export SA_ROOT="$ROOT"
 ASSET_ARCH="$(python3 -c "
-import yaml, pathlib
-p = pathlib.Path('$ROOT') / '.tuned.yaml'
+import yaml, pathlib, os
+p = pathlib.Path(os.environ['SA_ROOT']) / '.tuned.yaml'
 print(yaml.safe_load(open(p)).get('asset_arch','') if p.exists() else '')
 " 2>/dev/null)"
-case "$ASSET_ARCH" in
-  arm64) pat="*aarch64*|*arm64*|*ARM64*|*AARCH64*" ;;
-  amd64) pat="*x86_64*|*amd64*|*X86_64*|*AMD64*" ;;
-  *) echo "verify REFUSED: unknown asset_arch '$ASSET_ARCH' (run ethos first)" >&2; exit 1;;
-esac
-case "$URL" in
-  $pat) ;;
+case "$ASSET_ARCH:$URL" in
+  arm64:*aarch64*|arm64:*arm64*|arm64:*ARM64*|arm64:*AARCH64*) ;;
+  amd64:*x86_64*|amd64:*amd64*|amd64:*X86_64*|amd64:*AMD64*) ;;
   *) echo "verify REFUSED: URL does not indicate $ASSET_ARCH ($URL)" >&2; exit 1;;
 esac
 

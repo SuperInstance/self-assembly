@@ -31,3 +31,37 @@ judge transport failed
 ## 2026-10-06T02:22:33.449966+00:00 — cpu: event type=issue_opened issue=43 len=79
 ## 2026-10-06T02:22:33.451350+00:00 — cpu: desire filed as needs/files-generate-mp4.yaml (stub, needs spec)
 ## 2026-10-06T02:24:36Z — ethos: tuning signed off (see CONSOLE.local.md)
+## 2026-10-06T02:24:55Z — wake: committed
+## 2026-10-06T02:24:55Z — wake: wake done
+## 2026-10-06T02:25:18Z — assemble typst-pdf: start (from needs/typst-pdf.yaml)
+## 2026-10-06T02:25:18Z — assemble typst-pdf: REJECTED: provenance verification failed
+## 2026-10-06T02:25:43Z — assemble typst-pdf: start (from needs/typst-pdf.yaml)
+## 2026-10-06T02:25:43Z — assemble typst-pdf: REJECTED: provenance verification failed
+## 2026-10-06T02:26:00Z — assemble typst-pdf: start (from needs/typst-pdf.yaml)
+## 2026-10-06T02:26:01Z — assemble typst-pdf: installing to /home/ubuntu/playground/self-assembly/plugins/typst-pdf/bin (120s leash, scrubbed env)
+## 2026-10-06T02:26:02Z — assemble typst-pdf: REJECTED: render failed
+## 2026-10-06T02:26:09Z — assemble typst-pdf: start (from needs/typst-pdf.yaml)
+## 2026-10-06T02:26:10Z — assemble typst-pdf: installing to /home/ubuntu/playground/self-assembly/plugins/typst-pdf/bin (120s leash, scrubbed env)
+## 2026-10-06T02:26:11Z — assemble typst-pdf: acceptance test failed (try 1)
+## 2026-10-06T02:26:16Z — judge typst-pdf: unparseable verdict (got: ''PLUGIN_DIR'; please install the plugin.') -> ESCALATE (fail-closed)
+## 2026-10-06T02:26:16Z — assemble typst-pdf: judge verdict: VERDICT: ESCALATE
+## 2026-10-06T02:26:16Z — assemble typst-pdf: REJECTED: acceptance test failed after 1 tries
+## 2026-10-06T02:26:41Z — assemble typst-pdf: start (from needs/typst-pdf.yaml)
+## 2026-10-06T02:26:41Z — assemble typst-pdf: installing to /home/ubuntu/playground/self-assembly/plugins/typst-pdf/bin (120s leash, scrubbed env)
+## 2026-10-06T02:26:43Z — assemble typst-pdf: acceptance test failed (try 1)
+## 2026-10-06T02:26:49Z — judge typst-pdf: unparseable verdict (got: 'ED') -> ESCALATE (fail-closed)
+## 2026-10-06T02:26:49Z — assemble typst-pdf: judge verdict: VERDICT: ESCALATE
+## 2026-10-06T02:26:50Z — assemble typst-pdf: REJECTED: acceptance test failed after 1 tries
+## 2026-10-06T02:27:12Z — assemble typst-pdf: start (from needs/typst-pdf.yaml)
+## 2026-10-06T02:27:13Z — assemble typst-pdf: installing to /home/ubuntu/playground/self-assembly/plugins/typst-pdf/bin (120s leash, scrubbed env)
+## 2026-10-06T02:27:14Z — assemble typst-pdf: acceptance test failed (try 1)
+## 2026-10-06T02:27:20Z — judge typst-pdf: unparseable verdict (got: '[fails to compile a minimal doc]') -> ESCALATE (fail-closed)
+## 2026-10-06T02:27:20Z — assemble typst-pdf: judge verdict: VERDICT: ESCALATE
+## 2026-10-06T02:27:20Z — assemble typst-pdf: REJECTED: acceptance test failed after 1 tries
+## 2026-10-06T02:27:39Z — assemble typst-pdf: start (from needs/typst-pdf.yaml)
+## 2026-10-06T02:27:40Z — assemble typst-pdf: installing to /home/ubuntu/playground/self-assembly/plugins/typst-pdf/bin (120s leash, scrubbed env)
+## 2026-10-06T02:27:41Z — assemble typst-pdf: acceptance test passed (try 1)
+## 2026-10-06T02:27:43Z — assemble typst-pdf: REGISTERED plugins/typst-pdf
+## 2026-10-06T02:27:55Z — assemble net-latency: start (from needs/net-latency.yaml)
+## 2026-10-06T02:28:02Z — assemble net-latency: acceptance test passed (try 1)
+## 2026-10-06T02:28:15Z — assemble net-latency: REGISTERED plugins/net-latency

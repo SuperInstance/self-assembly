@@ -1,0 +1,26 @@
+name: net-latency
+desire: "Measure network latency to a host"
+when: "measure network latency to a host"
+source:
+  type: none
+  url: ""
+  pin: ""
+  sha256: ""
+verify:
+  second_source: "human:muse:2026-10-06:no fetch needed; system tool only (ping)"
+driver:
+  command: "ping -c 4"
+probe:
+  - args: "127.0.0.1"
+    expect_contains: "4 packets transmitted"
+    timeout_s: 15
+tests:
+  - name: "localhost pings"
+    args: "127.0.0.1"
+    expect_contains: "0% packet loss"
+  - name: "reports timing"
+    args: "127.0.0.1"
+    expect_contains: "avg"
+
+registered_at: 2026-10-06T02:28:15Z
+registered_by: assembler

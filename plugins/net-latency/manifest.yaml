@@ -1,0 +1,16 @@
+name: net-latency
+version: 0.1.0
+when: measure network latency to a host
+source:
+  type: none
+  url: ''
+  pin: ''
+  sha256: ''
+verify:
+  second_source: human:muse:2026-10-06:no fetch needed; system tool only (ping)
+grants:
+- run_shell
+install: ''
+health: ./probe.sh
+accept: ./test.sh
+inner_agents: []

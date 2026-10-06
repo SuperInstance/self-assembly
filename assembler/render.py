@@ -16,25 +16,36 @@ os.makedirs(os.path.join(pdir, 'ledger'), exist_ok=True)
 src = spec.get('source', {})
 drv = spec.get('driver', {})
 path_extra = drv.get('path_extra', '')
-env_line = f'export PATH="{path_extra}:$PATH"\n' if path_extra else ''
+# driver.sh defines PLUGIN_DIR; probe/test scripts define D — substitute accordingly
+env_driver = f'export PATH="{path_extra}:$PATH"\n' if path_extra else ''
+env_check = env_driver.replace("$PLUGIN_DIR", "$D") if path_extra else ''
+# flags that bypass the command prefix (e.g. --version, --help go straight to the binary)
+pt = drv.get('passthrough_flags', [])
+passthrough = ""
+if pt:
+    cases = " | ".join(f'"{f}"' for f in pt)
+    passthrough = f'case "${{1:-}}" in {cases}) exec {drv["command"].split()[0]} "$@";; esac'
 
 def sh_body(checks, label):
     lines = ["#!/bin/bash", f"# {label}: {name} (rendered by assembler)", "set -u",
              'D="$(cd "$(dirname "$0")" && pwd)"',
              '"$D/../../assembler/probe-console.sh" --quiet || { echo "FATAL: not on the console" >&2; exit 3; }',
-             env_line.rstrip(), "fail=0"]
+             env_check.rstrip(), 'cd "$D"', "fail=0"]
     for c in checks:
         args = c.get('args', '')
-        want = c['expect_contains']
         to = c.get('timeout_s', 30)
         nm = c.get('name', args)
-        lines += [
-            f'echo "  [{nm}]"',
-            f'if out=$(timeout {to} "$D/driver.sh" {args} 2>&1); then',
-            f'  if printf "%s" "$out" | grep -q "{want}"; then echo "    PASS";',
-            '  else echo "    FAIL: missing expected text"; echo "$out" | head -5; fail=1; fi',
-            'else echo "    FAIL: driver exited nonzero"; echo "$out" | head -5; fail=1; fi',
-        ]
+        want = c.get('expect_contains')
+        wantfile = c.get('expect_file')
+        lines += [f'echo "  [{nm}]"',
+                  f'if out=$(timeout {to} "$D/driver.sh" {args} 2>&1); then']
+        if wantfile:
+            lines += [f'  if [ -f "{wantfile}" ]; then echo "    PASS";',
+                      '  else echo "    FAIL: expected file missing"; echo "$out" | head -5; fail=1; fi']
+        else:
+            lines += [f'  if printf "%s" "$out" | grep -q "{want}"; then echo "    PASS";',
+                      '  else echo "    FAIL: missing expected text"; echo "$out" | head -5; fail=1; fi']
+        lines += ['else echo "    FAIL: driver exited nonzero"; echo "$out" | head -5; fail=1; fi']
     lines += ['exit $fail', '']
     return "\n".join(l for l in lines if l is not None)
 
@@ -42,7 +53,8 @@ driver_sh = "\n".join([
     "#!/bin/bash", f"# driver.sh: {name} (rendered by assembler)", "set -u",
     'PLUGIN_DIR="$(cd "$(dirname "$0")" && pwd)"',
     '"$PLUGIN_DIR/../../assembler/probe-console.sh" --quiet || { echo "FATAL: not on the console" >&2; exit 3; }',
-    env_line.rstrip(),
+    env_driver.rstrip(),
+    passthrough,
     f'exec {drv["command"]} "$@"', ""
 ])
 
@@ -68,6 +80,11 @@ for fn, content in files.items():
     open(p, 'w').write(content)
     if fn.endswith('.sh'):
         os.chmod(p, os.stat(p).st_mode | stat.S_IXUSR | stat.S_IXGRP)
+# committed test fixtures from the proposal spec
+for cf in spec.get('cases', []):
+    cp = os.path.join(pdir, 'cases', cf['path'])
+    os.makedirs(os.path.dirname(cp), exist_ok=True)
+    open(cp, 'w').write(cf['content'])
 open(os.path.join(pdir, 'BUILD.jsonl'), 'a').write(
     '{"event":"rendered","at":"%s","from":"%s"}\n' % (__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat(), needs_file))
 print(pdir)

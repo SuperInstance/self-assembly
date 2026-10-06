@@ -1,0 +1,4 @@
+{"event":"rendered","at":"2026-10-06T02:27:55.362169+00:00","from":"needs/net-latency.yaml"}
+{"t":"2026-10-06T02:27:55Z","e":"rendered"}
+{"t":"2026-10-06T02:28:02Z","e":"test-pass try=1"}
+{"event":"registered","at":"2026-10-06T02:28:15Z"}
