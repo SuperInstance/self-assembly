@@ -1,0 +1,17 @@
+tuned: true
+probed_at: '2026-10-06T02:24:36.978448+00:00'
+simulated: false
+arch: aarch64
+cores: 4
+mem_gb: 23
+disk_gb: 45
+gpu: absent
+network: direct
+reference_match: true
+judge_parallelism: 3
+reserve_gb: 3
+plugin_mem_gb: 5
+install_mem_gb: 10
+disk_floor_gb: 9
+scratch_max_gb: 4
+asset_arch: arm64

@@ -1,0 +1,17 @@
+# reference.yaml — the Oracle free-tier reference console (development target)
+# This is the box everything is DESIGNED for. The ethos agent derives the
+# LOCAL spec from this reference; if the probe matches exactly, local ==
+# reference, zero drama. Machine-readable source of truth; CONSOLE.md is the
+# human rendering of the same numbers.
+arch: aarch64
+cores: 4
+mem_gb: 23
+disk_gb: 45
+os: ubuntu-26.04
+asset_arch: arm64
+judge_parallelism: 3
+reserve_gb: 3
+plugin_mem_gb: 5
+install_mem_gb: 10
+disk_floor_gb: 10
+scratch_max_gb: 5

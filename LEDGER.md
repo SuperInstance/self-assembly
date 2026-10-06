@@ -25,3 +25,9 @@ judge transport failed
 ## 2026-10-06T02:22:04Z — assemble disk-report: start (from needs/disk-report.yaml)
 ## 2026-10-06T02:22:05Z — assemble disk-report: acceptance test passed (try 1)
 ## 2026-10-06T02:22:05Z — assemble disk-report: REGISTERED plugins/disk-report
+## 2026-10-06T02:22:14.371127+00:00 — cpu: cpu-api starting on 127.0.0.1:8777
+## 2026-10-06T02:22:28.709225+00:00 — cpu: event type=issue_opened issue=42 len=58
+## 2026-10-06T02:22:28.727401+00:00 — cpu: plugin 'disk-report' ran rc=0 score=3
+## 2026-10-06T02:22:33.449966+00:00 — cpu: event type=issue_opened issue=43 len=79
+## 2026-10-06T02:22:33.451350+00:00 — cpu: desire filed as needs/files-generate-mp4.yaml (stub, needs spec)
+## 2026-10-06T02:24:36Z — ethos: tuning signed off (see CONSOLE.local.md)

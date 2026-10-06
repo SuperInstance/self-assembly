@@ -1,4 +1,10 @@
-# CONSOLE.md — the box we build for
+# CONSOLE.md — the REFERENCE console spec sheet
+
+> **Reference vs local.** This file is the *reference*: the Oracle free-tier
+> box everything is designed for. It never changes. The ethos agent
+> (`assembler/ethos/`) derives the *local* spec for the actual box and writes
+> it to `CONSOLE.local.md` + `.tuned.yaml` on first boot. If the probe
+> matches this reference exactly, local == reference, zero drama.
 
 This is not a compatibility matrix. It is a console spec sheet.
 Everything in this tree assumes EXACTLY this machine. If

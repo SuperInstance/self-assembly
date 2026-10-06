@@ -7,8 +7,7 @@
 # two independent places the assembler fetched itself, or a human attested it.
 set -u
 NEEDS="$1"; DL="$2"
-PY="python3 -c"
-
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 get() { # get <dotted.key> — tiny yaml getter via pyyaml
   python3 - "$NEEDS" "$1" << 'EOF'
 import yaml,sys
@@ -29,10 +28,21 @@ SECOND="$(get verify.second_source)"
 [ -n "$SHA" ]   || { echo "verify REFUSED: empty source.sha256" >&2; exit 1; }
 case "$SHA" in [0-9a-f]* ) [ "${#SHA}" = 64 ] || { echo "verify REFUSED: sha256 not 64 hex" >&2; exit 1; };; *) echo "verify REFUSED: sha256 not hex" >&2; exit 1;; esac
 
-# Console binary guard: fetched asset names must say ARM64 unless human-attested otherwise.
+# Console binary guard: the fetched asset must match the tuned asset_arch
+# (from the ethos agent's .tuned.yaml) — the console spec, not a guess.
+ASSET_ARCH="$(python3 -c "
+import yaml, pathlib
+p = pathlib.Path('$ROOT') / '.tuned.yaml'
+print(yaml.safe_load(open(p)).get('asset_arch','') if p.exists() else '')
+" 2>/dev/null)"
+case "$ASSET_ARCH" in
+  arm64) pat="*aarch64*|*arm64*|*ARM64*|*AARCH64*" ;;
+  amd64) pat="*x86_64*|*amd64*|*X86_64*|*AMD64*" ;;
+  *) echo "verify REFUSED: unknown asset_arch '$ASSET_ARCH' (run ethos first)" >&2; exit 1;;
+esac
 case "$URL" in
-  *aarch64*|*arm64*|*ARM64*|*AARCH64*) ;;
-  *) echo "verify REFUSED: URL does not indicate aarch64/arm64 ($URL)" >&2; exit 1;;
+  $pat) ;;
+  *) echo "verify REFUSED: URL does not indicate $ASSET_ARCH ($URL)" >&2; exit 1;;
 esac
 
 mkdir -p "$DL"
