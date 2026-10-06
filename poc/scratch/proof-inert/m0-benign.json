@@ -1,0 +1,10 @@
+{
+ "name": "m0-benign",
+ "why": "inert proof manifest \u2014 payload is text only",
+ "source": "https://github.com/example/inert-pkg.tar.xz",
+ "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+ "install": "tar xf vendor/pkg.tar.xz -C vendor/ --strip-components=1",
+ "tests": [
+  "vendor/bin/ffmpeg -version 2>&1 | grep -q 'n8.1'"
+ ]
+}

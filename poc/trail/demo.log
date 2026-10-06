@@ -1,0 +1,4 @@
+$ ./fixture.sh
+$ ./trim.sh fixture.mp4 1 3 sample-cut.mp4
+$ ./verify-cut.sh sample-cut.mp4 3
+cut OK: 3.00s (want 3.0s), streams: audio video
