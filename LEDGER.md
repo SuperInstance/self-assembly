@@ -80,3 +80,5 @@ judge transport failed
 ## 2026-10-06T02:31:09Z — wake: wake done
 ## 2026-10-06T02:31:49Z — wake: plugin '_corrupt2' SKIPPED: malformed manifest (boot continues)
 ## 2026-10-06T02:31:49Z — wake: issue filed: ledger/issues/manifest-_corrupt2-2026-10-06T02-31-49Z.md
+## 2026-10-06T02:31:54Z — wake: committed
+## 2026-10-06T02:31:54Z — wake: wake done
